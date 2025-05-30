@@ -78,14 +78,14 @@ resource "aws_sg" "ecs_service" {
     to_port     = 80
     protocol    = "tcp"
     cidr_blocks = ["0.0.0.0/0"]
-  }
+ }
 
   egress {
     from_port   = 0
     to_port     = 0
     protocol    = "-1"
     cidr_blocks = ["0.0.0.0/0"]
-  }
+ }
 
 }
 
@@ -114,5 +114,5 @@ resource "aws_lb_listener" "app_listener_786" {
   default_action {
     type             = "forward"
     target_group_arn = aws_lb_target_group.app_tg_786.arn
-  }
+ }
 }
