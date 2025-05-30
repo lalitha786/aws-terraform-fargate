@@ -1,6 +1,5 @@
 provider "aws" {
  region = "us-east-1"
-
 }
 
 resource "aws_vpc" "ecs-vpc-786" {
@@ -68,8 +67,6 @@ resource "aws_iam_role_policy_attachment" "ecs_task_execution_policy" {
   role       = aws_iam_role.ecs_task_execution.name
   policy_arn = "arn:aws:iam::aws:policy/service-role/AmazonECSTaskExecutionRolePolicy"
 }
-
-
 resource "aws_sg" "ecs_service" {
   vpc_id = aws_vpc.ecs-vpc-786.id
 
@@ -78,19 +75,15 @@ resource "aws_sg" "ecs_service" {
     to_port     = 80
     protocol    = "tcp"
     cidr_blocks = ["0.0.0.0/0"]
- }
+  }
 
   egress {
     from_port   = 0
     to_port     = 0
     protocol    = "-1"
     cidr_blocks = ["0.0.0.0/0"]
- }
-
+  }
 }
-
-
-
 resource "aws_lb" "app_alb_786" {
   name               = "app-alb-786"
   internal           = false
@@ -98,14 +91,12 @@ resource "aws_lb" "app_alb_786" {
   security_groups    = [aws_sg.ecs_service.id]
   subnets            = aws_subnet.public[*].id
 }
-
 resource "aws_lb_target_group" "app_tg_786" {
   name     = "app-tg"
   port     = 80
   protocol = "HTTP"
   vpc_id   = aws_vpc.ecs-vpc.id
 }
-
 resource "aws_lb_listener" "app_listener_786" {
   load_balancer_arn = aws_lb.app_alb_786.arn
   port              = 80
@@ -114,5 +105,5 @@ resource "aws_lb_listener" "app_listener_786" {
   default_action {
     type             = "forward"
     target_group_arn = aws_lb_target_group.app_tg_786.arn
- }
+  }
 }
