@@ -103,7 +103,7 @@ resource "aws_lb_target_group" "app_tg_786" {
   vpc_id   = aws_vpc.main.id
 }
 
-resource "aws_lb-listener" "app_listener_786" {
+resource "aws_lb_listener" "app_listener_786" {
   load_balancer_arn = aws_lb.app_alb_786.arn
   port              = 80
   protocol          = "HTTP"
