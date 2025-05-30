@@ -71,7 +71,7 @@ resource "aws_iam_role_policy_attachment" "ecs_task_execution_policy" {
 
 
 resource "aws_security_group" "ecs_service" {
-  vpc_id = aws_vpc.main.id
+  vpc_id = aws_vpc.ecs-vpc-786.id
 
   ingress {
     from_port   = 80
@@ -88,9 +88,6 @@ resource "aws_security_group" "ecs_service" {
   }
 
 }
-
-
-
 resource "aws_lb" "app_alb_786" {
   name               = "app-alb-786"
   internal           = false
@@ -110,7 +107,6 @@ resource "aws_lb_listener" "app_listener_786" {
   load_balancer_arn = aws_lb.app_alb_786.arn
   port              = 80
   protocol          = "HTTP"
-
   default_action {
     type             = "forward"
     target_group_arn = aws_lb_target_group.app_tg_786.arn
