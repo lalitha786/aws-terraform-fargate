@@ -70,7 +70,7 @@ resource "aws_iam_role_policy_attachment" "ecs_task_execution_policy" {
 }
 
 
-resource "aws_security_group" "ecs_service" {
+resource "aws_sg" "ecs_service" {
   vpc_id = aws_vpc.ecs-vpc-786.id
 
   ingress {
@@ -95,7 +95,7 @@ resource "aws_lb" "app_alb_786" {
   name               = "app-alb-786"
   internal           = false
   load_balancer_type = "application"
-  security_groups    = [aws_security_group.ecs_service.id]
+  security_groups    = [aws_sg.ecs_service.id]
   subnets            = aws_subnet.public[*].id
 }
 
