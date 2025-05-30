@@ -77,16 +77,20 @@ resource "aws_security_group" "ecs_service" {
     from_port   = 80
     to_port     = 80
     protocol    = "tcp"
-    cidr_blocks = "0.0.0.0/0"
+    cidr_blocks = ["0.0.0.0/0"]
   }
 
   egress {
     from_port   = 0
     to_port     = 0
     protocol    = "-1"
-    cidr_blocks = "0.0.0.0/0"
- }
+    cidr_blocks = ["0.0.0.0/0"]
+  }
+
 }
+
+
+
 resource "aws_lb" "app_alb_786" {
   name               = "app-alb-786"
   internal           = false
@@ -99,13 +103,14 @@ resource "aws_lb_target_group" "app_tg_786" {
   name     = "app-tg"
   port     = 80
   protocol = "HTTP"
-  vpc_id   = aws_vpc.main.id
+  vpc_id   = aws_vpc.ecs-vpc.id
 }
 
 resource "aws_lb_listener" "app_listener_786" {
   load_balancer_arn = aws_lb.app_alb_786.arn
   port              = 80
   protocol          = "HTTP"
+
   default_action {
     type             = "forward"
     target_group_arn = aws_lb_target_group.app_tg_786.arn
