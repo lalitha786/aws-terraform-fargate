@@ -85,8 +85,7 @@ resource "aws_security_group" "ecs_service" {
     to_port     = 0
     protocol    = "-1"
     cidr_blocks = "0.0.0.0/0"
-  }
-
+  }
 }
 resource "aws_lb" "app_alb_786" {
   name               = "app-alb-786"
