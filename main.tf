@@ -70,21 +70,21 @@ resource "aws_iam_role_policy_attachment" "ecs_task_execution_policy" {
 }
 
 
-resource "aws_security-group" "ecs_service" {
+resource "aws_security_group" "ecs_service" {
   vpc_id = aws_vpc.ecs-vpc-786.id
 
   ingress {
     from_port   = 80
     to_port     = 80
     protocol    = "tcp"
-    cidr_blocks = ["0.0.0.0/0"]
+    cidr_blocks = "0.0.0.0/0"
   }
 
   egress {
     from_port   = 0
     to_port     = 0
     protocol    = "-1"
-    cidr_blocks = ["0.0.0.0/0"]
+    cidr_blocks = "0.0.0.0/0"
   }
 
 }
